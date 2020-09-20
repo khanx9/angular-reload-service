@@ -1,0 +1,53 @@
+<div class="FoodWrapper">
+  <div class="loadingApp" *ngIf="isLoading">
+    <img src="../../../assets/unnamed.gif" />
+  </div>
+  <app-snackbar></app-snackbar>
+  <div class="toolBar">
+    <button (click)="reloadData()">Reload</button>
+    <button (click)="createNew()">Create new +</button>
+  </div>
+  <table>
+    <thead>
+      <th *ngFor="let title of displayedColumns">{{ title }}</th>
+    </thead>
+    
+    <tbody>
+      <p *ngIf="dataFood.length === 0" style="text-align: center; width: 100%;">NO DATA</p>
+      <tr *ngFor="let item of dataFood" style="border-bottom:0.2em solid thin;">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.createdAt }}</td>
+        <td>{{ item.images[0].substr(0, 10) }}</td>
+        <td>
+          <div [ngClass]="item.isDelete ? 'toggle-btn active' : 'toggle-btn'">
+            <input
+              type="checkbox"
+              checked
+              class="cb-value"
+              (change)="toggleTheme(item.id)"
+            />
+            <span class="round-btn"></span>
+          </div>
+        </td>
+        <td>
+          <div class="tag">
+            {{item.status}}
+          </div>
+        </td>
+        <td>
+          <button
+            (click)="removeAction(item.id, e.name)"
+            *ngFor="let e of [actionEdit, actionDelete]"
+            class="edit"
+          >
+            {{ e.label }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      
+    </tfoot>
+  </table>
+</div>
