@@ -6,6 +6,7 @@ import { LOADING } from 'src/app/state/appAction.action';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { ReloadPageService } from 'src/app/services/reload-page.service';
 
 @Component({
   selector: 'app-food',
@@ -13,10 +14,8 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./food.component.scss']
 })
 
-export class FoodComponent implements OnInit,OnDestroy {
+export class FoodComponent implements OnInit {
   displayedColumns: string[] = ['id', 'category', 'createAt', 'images', 'isDelete', 'status', 'action'];
-
-  mySubscription: any;
   isLoading = false;
   actionEdit = {
     label: '⚒️',
@@ -37,7 +36,14 @@ export class FoodComponent implements OnInit,OnDestroy {
   }
 
 
-  constructor(private store: Store<AppState>, private foodService: FoodService, private _snackBar: MatSnackBar, private snackBarService: SnackbarService, public router: Router) {
+  constructor(
+    private store: Store<AppState>, 
+    private foodService: FoodService, 
+    private _snackBar: MatSnackBar, 
+    private snackBarService: SnackbarService, 
+    public router: Router,
+    public reloadPageService : ReloadPageService
+    ) {
     console.log('init food component')
     store.subscribe({
       next: (state) => {
@@ -46,17 +52,7 @@ export class FoodComponent implements OnInit,OnDestroy {
         }
       }
     })
-
-
-    router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
-    this.mySubscription = router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        router.navigated = false;
-      }
-    });
+    // reloadPageService.init()
   }
 
   openSnackBar(message: string, action: string) {
@@ -100,7 +96,6 @@ export class FoodComponent implements OnInit,OnDestroy {
 
   onClick = (id, name) => {
     this.router.navigate(['/food-detail/'+id, ], {
-      
       state : {
         value : name
       }
@@ -121,12 +116,7 @@ export class FoodComponent implements OnInit,OnDestroy {
     setTimeout(() => this.refreshPage(), 0)
   }
 
-  ngOnDestroy() {
-    if (this.mySubscription) {
-      console.log('d')
-      this.mySubscription.unsubscribe();
-    }
-  }
+
 
   refreshPage = () => {
 
@@ -139,7 +129,7 @@ export class FoodComponent implements OnInit,OnDestroy {
   }
 
   reloadData = () => {
-    this.router.navigate([this.router.url]);
+    this.reloadPageService.reloadPage();
   }
 
 }

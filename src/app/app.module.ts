@@ -14,6 +14,7 @@ import { SnackbarService } from './pages/snackbar/snackbar.service';
 import {Snackbar} from '../app/pages/snackbar/snackbar.component';
 import { FoodDetailComponent } from './pages/food-detail/food-detail.component';
 import { ButtonComponent } from './pages/button/button.component';
+import { ReloadPageService } from './services/reload-page.service';
 
 const globalStateManagement = {};
 
@@ -39,7 +40,7 @@ const globalStateManagement = {};
     ),
     
   ],
-  providers: [FoodService,SnackbarService,History],
+  providers: [FoodService,SnackbarService,History,ReloadPageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

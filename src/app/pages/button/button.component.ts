@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ReloadPageService } from 'src/app/services/reload-page.service';
 
 @Component({
   selector: 'app-button',
@@ -17,7 +18,7 @@ export class ButtonComponent implements OnInit {
 
     name : string
     @Output() forceUpdate = new EventEmitter();
-    constructor(private router : Router,public location : Location) {
+    constructor(private router : Router,public location : Location, public reloadPageService : ReloadPageService) {
         console.log('init button component')
     }
     ngOnInit() {
@@ -27,7 +28,8 @@ export class ButtonComponent implements OnInit {
 
     reload() {
         console.log('dô')
-        this.forceUpdate.emit(true)
+        this.reloadPageService.reloadPage()
+
     }
 }
 
