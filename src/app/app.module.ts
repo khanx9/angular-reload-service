@@ -12,6 +12,8 @@ import { rootReducers } from './state/rootReducer.root';
 import { HttpClientModule } from '@angular/common/http';
 import { SnackbarService } from './pages/snackbar/snackbar.service';
 import {Snackbar} from '../app/pages/snackbar/snackbar.component';
+import { FoodDetailComponent } from './pages/food-detail/food-detail.component';
+import { ButtonComponent } from './pages/button/button.component';
 
 const globalStateManagement = {};
 
@@ -19,7 +21,9 @@ const globalStateManagement = {};
   declarations: [
     AppComponent,
     FoodComponent,
-    Snackbar
+    Snackbar,
+    FoodDetailComponent,
+    ButtonComponent
   ],
   imports: [
     HttpClientModule,
@@ -35,7 +39,7 @@ const globalStateManagement = {};
     ),
     
   ],
-  providers: [FoodService,SnackbarService],
+  providers: [FoodService,SnackbarService,History],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@
   <div class="toolBar">
     <button (click)="reloadData()">Reload</button>
     <button (click)="createNew()">Create new +</button>
+    <app-button (forceUpdate)="update($event)"></app-button>
   </div>
   <table>
     <thead>
@@ -14,7 +15,7 @@
     
     <tbody>
       <p *ngIf="dataFood.length === 0" style="text-align: center; width: 100%;">NO DATA</p>
-      <tr *ngFor="let item of dataFood" style="border-bottom:0.2em solid thin;">
+      <tr *ngFor="let item of dataFood" style="border-bottom:0.2em solid thin;" (click)="onClick(item.id,item.name)">
         <td>{{ item.id }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.createdAt }}</td>
