@@ -27,7 +27,6 @@ export class ButtonComponent implements OnInit {
     }
 
     reload() {
-        console.log('dô')
         this.reloadPageService.reloadPage()
 
     }
