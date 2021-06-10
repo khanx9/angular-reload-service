@@ -128,6 +128,8 @@ export class FoodComponent implements OnInit {
 
   }
 
+  
+
   reloadData = () => {
     this.reloadPageService.reloadPage();
   }

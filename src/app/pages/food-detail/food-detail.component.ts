@@ -17,7 +17,7 @@ export class FoodDetailComponent implements OnInit {
 
     name : string
     constructor(private router : Router,public location : Location) {
-        console.log('init food detail component')
+        console.log('init food detail component');
     }
     ngOnInit() {
         console.log(history.state.value)
